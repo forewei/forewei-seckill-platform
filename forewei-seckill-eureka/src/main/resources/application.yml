@@ -1,0 +1,27 @@
+server:
+  port: 8000
+eureka:
+  instance:
+    hostname: ${spring.cloud.client.ip-address}
+    prefer-ip-address: true
+    #没有心跳淘汰时间
+    lease-expiration-duration-in-seconds: 10
+    #心跳间隔
+    lease-renewal-interval-in-seconds: 5
+
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  server:
+    #关闭自我保护
+    enable-self-preservation: false
+    #剔除失效服务间隔
+    eviction-interval-timer-in-ms: 5000
+    #禁用readOnlyCache
+    use-read-only-response-cache: false
+
+spring:
+  application:
+    name: forewei-seckill-eureka

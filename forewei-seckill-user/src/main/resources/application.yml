@@ -1,0 +1,76 @@
+server:
+  port: 8100
+  undertow:
+    max-http-post-size: 0
+    io-threads: 4
+    worker-threads: 32
+    buffer-size: 1024
+    direct-buffers: true
+swagger:
+  enable: true
+spring:
+  eureka:
+    host: localhost
+  application:
+    name: forewei-seckill-user
+  datasource:
+    druid:
+      validation-query: SELECT 1 from dual
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://${spring.datasource.druid.host}:3306/seckill_user?autoReconnect=true&failOverReadOnly=false&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Shanghai
+      host: db.forewei.fun
+      username: root
+      password: forewei
+      initial-size: 5
+      max-active: 20
+      max-wait: 60000
+      min-idle: 5
+      #druid�����Ϣ
+      filter:
+        stat:
+          enabled: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${spring.eureka.host}:8000/eureka
+
+  instance:
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 10
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+feign:
+  hystrix:
+    enabled: false
+  httpclient:
+    enabled: true
+    connection-timeout: 300000
+    max-connections: 500
+    time-to-live: 30
+ribbon:
+  ConnectionTimeout: 100000
+  ReadTimeout: 100000
+#�۶�����
+hystrix:
+  command:
+    default:
+      fallback:
+        isolation:
+          semaphore:
+            maxConcurrentRequests: 100
+      execution:
+        isolation:
+          strategy: SEMAPHORE
+          semaphore:
+            maxConcurrentRequests: 2000
+          thread:
+            timeoutInMilliseconds: 15000
+        timeout:
+          enable: true
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  global-config:
+    db-config:
+      id-type: auto
+
+

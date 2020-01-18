@@ -1,0 +1,11 @@
+forewei-seckill-dto/target/forewei-seckill-dto-1.0-SNAPSHOT.jar
+.idea/
+*.class
+forewei-seckill-dto/target/classes/META-INF/forewei-seckill-dto.kotlin_module
+forewei-seckill-dto/target/
+forewei-seckill-user/.mvn/
+forewei-seckill-user/mvnw
+forewei-seckill-user/mvnw.cmd
+forewei-seckill-eureka/.mvn/wrapper/maven-wrapper.jar
+forewei-seckill-eureka/.mvn/
+forewei-seckill-dto/forewei-seckill-dto.iml
